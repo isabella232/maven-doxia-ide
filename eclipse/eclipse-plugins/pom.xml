@@ -38,10 +38,18 @@ under the License.
   <url>http://maven.apache.org/doxia</url>
 
   <scm>
-      <connection>scm:svn:https://svn.apache.org/repos/asf/maven/sandbox/trunk/doxia/doxia-ide/eclipse/eclipse-plugins</connection>
-      <developerConnection>scm:svn:https://svn.apache.org/repos/asf/maven/sandbox/trunk/doxia/doxia-ide/eclipse/eclipse-plugins</developerConnection>
-      <url>https://svn.apache.org/repos/asf/maven/sandbox/trunk/doxia/doxia-ide/eclipse/eclipse-plugins</url>
+      <connection>scm:svn:http://svn.apache.org/repos/asf/maven/doxia/doxia-ide/trunk/eclipse/eclipse-plugins</connection>
+      <developerConnection>scm:svn:https://svn.apache.org/repos/asf/maven/doxia/doxia-ide/trunk/eclipse/eclipse-plugins</developerConnection>
+      <url>http://svn.apache.org/viewvc/maven/doxia/doxia-ide/trunk/eclipse/eclipse-plugins</url>
   </scm>
+  <issueManagement>
+    <system>jira</system>
+    <url>http://jira.codehaus.org/browse/DOXIATOOLS/component/14861</url>
+  </issueManagement>
+  <ciManagement>
+    <system>Jenkins</system>
+    <url>https://builds.apache.org/job/doxia-eclipse-editor/</url>
+  </ciManagement>
 
   <properties>
     <tycho-version>0.12.0</tycho-version>
