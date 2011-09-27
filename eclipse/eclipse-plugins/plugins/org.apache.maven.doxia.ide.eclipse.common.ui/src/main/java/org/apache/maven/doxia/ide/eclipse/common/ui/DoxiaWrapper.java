@@ -20,10 +20,12 @@ package org.apache.maven.doxia.ide.eclipse.common.ui;
  */
 
 import java.io.FileNotFoundException;
-import java.io.FileReader;
+import java.io.IOException;
 import java.io.OutputStream;
 import java.io.Reader;
 import java.io.StringReader;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.apache.commons.io.output.ByteArrayOutputStream;
 import org.apache.maven.doxia.Converter;
@@ -34,6 +36,7 @@ import org.apache.maven.doxia.parser.ParseException;
 import org.apache.maven.doxia.wrapper.InputReaderWrapper;
 import org.apache.maven.doxia.wrapper.OutputStreamWrapper;
 import org.codehaus.plexus.util.IOUtil;
+import org.codehaus.plexus.util.ReaderFactory;
 import org.codehaus.plexus.util.StringUtils;
 import org.eclipse.core.resources.IFile;
 import org.eclipse.core.resources.IMarker;
@@ -75,36 +78,34 @@ public class DoxiaWrapper
      */
     public static String convert( IFile file, String format )
     {
-        Reader reader;
+        // to interpolate basedir (DOXIATOOLS-15)
+        Reader reader = null;
+        String content = "";
         try
         {
-            reader = new FileReader( file.getLocation().toFile() );
+            reader = ReaderFactory.newReader( file.getLocation().toFile(), file.getCharset() );
+            content = IOUtil.toString( reader );
+
+            content = interpolateBasedir( file, content );
         }
-        catch ( FileNotFoundException e )
+        catch ( IOException e )
         {
-            CommonPlugin.logError( "FileNotFoundException: " + e.getMessage(), e, true );
+            String msg = "IOException: " + e.getMessage();
+            CommonPlugin.logError( msg, e, true );
+            return addGenericMarker( file, msg );
+        }
+        catch ( CoreException ce )
+        {
+            CommonPlugin.logError( "CoreException: " + ce.getMessage(), ce, true );
 
-            try
-            {
-                IMarker marker = file.createMarker( IMarker.PROBLEM );
-                if ( marker.exists() )
-                {
-                    marker.setAttribute( IMarker.TRANSIENT, true );
-                    marker.setAttribute( IMarker.MESSAGE, e.getMessage() );
-                    marker.setAttribute( IMarker.SEVERITY, IMarker.SEVERITY_ERROR );
-                }
-            }
-            catch ( CoreException ce )
-            {
-                CommonPlugin.logError( "CoreException: " + ce.getMessage(), ce, true );
-
-                return "CoreException: " + ce.getMessage();
-            }
-
-            return "FileNotFoundException: " + e.getMessage();
+            return "CoreException: " + ce.getMessage();
+        }
+        finally
+        {
+            IOUtil.close( reader );
         }
 
-        return convert( reader, file, format );
+        return convert( new StringReader( content ), file, format );
     }
 
     // ----------------------------------------------------------------------
@@ -133,91 +134,21 @@ public class DoxiaWrapper
         }
         catch ( UnsupportedFormatException e )
         {
-            String msg = ( StringUtils.isEmpty( e.getMessage() ) ? e.getClass().getName() : e.getMessage() );
-            CommonPlugin.logError( "Doxia Unsupported Format Exception: " + msg, e, true );
+            String msg = "Doxia Unsupported Format Exception: " + ( StringUtils.isEmpty( e.getMessage() ) ? e.getClass().getName() : e.getMessage() );
+            CommonPlugin.logError( msg, e, true );
 
-            try
-            {
-                clearMarkers( file );
-
-                IMarker marker = file.createMarker( IMarker.PROBLEM );
-                if ( marker.exists() )
-                {
-                    marker.setAttribute( IMarker.TRANSIENT, true );
-                    marker.setAttribute( IMarker.MESSAGE, msg );
-                    marker.setAttribute( IMarker.SEVERITY, IMarker.SEVERITY_ERROR );
-                }
-            }
-            catch ( CoreException ce )
-            {
-                String msgCe = ( StringUtils.isEmpty( ce.getMessage() ) ? ce.getClass().getName() : ce.getMessage() );
-                CommonPlugin.logError( "CoreException: " + msgCe, ce, true );
-
-                return "CoreException: " + msgCe;
-            }
-
-            return "Doxia Unsupported Format Exception: " + e.getMessage();
+            return addGenericMarker( file, msg );
         }
         catch ( ConverterException e )
         {
-            String msg = ( StringUtils.isEmpty( e.getMessage() ) ? e.getClass().getName() : e.getMessage() );
-
-            try
-            {
-                clearMarkers( file );
-
-                IMarker marker = file.createMarker( IMarker.PROBLEM );
-                if ( marker.exists() )
-                {
-                    marker.setAttribute( CommonPlugin.PLUGIN_ID, CommonPlugin.PLUGIN_ID );
-                    marker.setAttribute( IMarker.TRANSIENT, true );
-                    marker.setAttribute( IMarker.MESSAGE, msg );
-                    if ( ParseException.class.isAssignableFrom( e.getCause().getClass() ) )
-                    {
-                        ParseException ex = (ParseException) e.getCause();
-                        marker.setAttribute( IMarker.LINE_NUMBER, ex.getLineNumber() );
-                        marker.setAttribute( IMarker.LOCATION, ex.getLineNumber() );
-                    }
-                    marker.setAttribute( IMarker.SEVERITY, IMarker.SEVERITY_ERROR );
-                }
-            }
-            catch ( CoreException ce )
-            {
-                String msgCe = ( StringUtils.isEmpty( ce.getMessage() ) ? ce.getClass().getName() : ce.getMessage() );
-                CommonPlugin.logError( "CoreException: " + msgCe, ce, true );
-
-                return "CoreException: " + msgCe;
-            }
-
-            return "Doxia Converter Exception: " + msg;
+            return addConverterMarker( file, e );
         }
         catch ( Throwable t )
         {
-            String msg = ( StringUtils.isEmpty( t.getMessage() ) ? t.getClass().getName() : t.getMessage() );
+            String msg = "Doxia Converter Throwable: " + ( StringUtils.isEmpty( t.getMessage() ) ? t.getClass().getName() : t.getMessage() );
+            CommonPlugin.logError( msg, t, true );
 
-            CommonPlugin.logError( "Doxia Converter Throwable: " + msg, t, true );
-
-            try
-            {
-                clearMarkers( file );
-
-                IMarker marker = file.createMarker( IMarker.PROBLEM );
-                if ( marker.exists() )
-                {
-                    marker.setAttribute( IMarker.TRANSIENT, true );
-                    marker.setAttribute( IMarker.MESSAGE, msg );
-                    marker.setAttribute( IMarker.SEVERITY, IMarker.SEVERITY_ERROR );
-                }
-            }
-            catch ( CoreException ce )
-            {
-                String msgCe = ( StringUtils.isEmpty( ce.getMessage() ) ? ce.getClass().getName() : ce.getMessage() );
-                CommonPlugin.logError( "CoreException: " + msgCe, ce, true );
-
-                return "CoreException: " + msgCe;
-            }
-
-            return "Doxia Converter Throwable: " + t.getMessage();
+            return addGenericMarker( file, msg );
         }
         finally
         {
@@ -231,10 +162,10 @@ public class DoxiaWrapper
         }
         catch ( CoreException ce )
         {
-            String msgCe = ( StringUtils.isEmpty( ce.getMessage() ) ? ce.getClass().getName() : ce.getMessage() );
-            CommonPlugin.logError( "CoreException: " + msgCe, ce, true );
+            String msgCe = "CoreException: " + ( StringUtils.isEmpty( ce.getMessage() ) ? ce.getClass().getName() : ce.getMessage() );
+            CommonPlugin.logError( msgCe, ce, true );
 
-            return "CoreException: " + msgCe;
+            return msgCe;
         }
 
         return out.toString();
@@ -269,5 +200,103 @@ public class DoxiaWrapper
             System.arraycopy( deleteMarkers, 0, todelete, 0, deleteindex );
             iFile.getWorkspace().deleteMarkers( todelete );
         }
+    }
+
+    private static String addGenericMarker( IFile file, String msg )
+    {
+        try
+        {
+            clearMarkers( file );
+
+            IMarker marker = file.createMarker( IMarker.PROBLEM );
+            if ( marker.exists() )
+            {
+                marker.setAttribute( IMarker.TRANSIENT, true );
+                marker.setAttribute( IMarker.MESSAGE, msg );
+                marker.setAttribute( IMarker.SEVERITY, IMarker.SEVERITY_ERROR );
+            }
+
+            return msg;
+        }
+        catch ( CoreException ce )
+        {
+            String msgCe = ( StringUtils.isEmpty( ce.getMessage() ) ? ce.getClass().getName() : ce.getMessage() );
+            CommonPlugin.logError( "CoreException: " + msgCe, ce, true );
+
+            return "CoreException: " + msgCe;
+        }
+    }
+
+    private static String addConverterMarker( IFile file, ConverterException e )
+    {
+        String msg = "Doxia Converter Exception: " + ( StringUtils.isEmpty( e.getMessage() ) ? e.getClass().getName() : e.getMessage() );
+
+        boolean isFileNotFoundException = false;
+        Throwable cause = e.getCause();
+        while ( cause != null)
+        {
+            // from MacroExecutionException
+            if ( cause.getClass().equals( FileNotFoundException.class ))
+            {
+                isFileNotFoundException = true;
+                msg = "Doxia Converter Exception: " + ( StringUtils.isEmpty( cause.getMessage() ) ? cause.getClass().getName() : cause.getMessage() );
+                break;
+            }
+            cause = cause.getCause();
+        }
+
+        try
+        {
+            IMarker[] markers = file.findMarkers( null, true, IResource.DEPTH_ZERO );
+            // to fight the right missing source just one time
+            if ( markers.length == 0 && isFileNotFoundException )
+            {
+                addConverterMarker( file, e, msg );
+            }
+            else
+            {
+                addConverterMarker( file, e, msg );
+            }
+        }
+        catch ( CoreException ce )
+        {
+            String msgCe = ( StringUtils.isEmpty( ce.getMessage() ) ? ce.getClass().getName() : ce.getMessage() );
+            CommonPlugin.logError( "CoreException: " + msgCe, ce, true );
+
+            return "CoreException: " + msgCe;
+        }
+
+        return "Doxia Converter Exception: " + msg;
+    }
+
+    private static void addConverterMarker( IFile file, ConverterException e, String msg )
+        throws CoreException
+    {
+        clearMarkers( file );
+
+        IMarker marker = file.createMarker( IMarker.PROBLEM );
+        if ( marker.exists() )
+        {
+            marker.setAttribute( CommonPlugin.PLUGIN_ID, CommonPlugin.PLUGIN_ID );
+            marker.setAttribute( IMarker.TRANSIENT, true );
+            marker.setAttribute( IMarker.MESSAGE, msg );
+
+            if ( ParseException.class.isAssignableFrom( e.getCause().getClass() ) )
+            {
+                ParseException ex = (ParseException) e.getCause();
+                marker.setAttribute( IMarker.LINE_NUMBER, ex.getLineNumber() );
+                marker.setAttribute( IMarker.LOCATION, ex.getLineNumber() );
+            }
+            marker.setAttribute( IMarker.SEVERITY, IMarker.SEVERITY_ERROR );
+        }
+    }
+
+    private static String interpolateBasedir(IFile file, String content )
+    {
+        final Map<String, String> m = new HashMap<String, String>();
+        m.put( "basedir", file.getProject().getLocation().toFile().getAbsolutePath() );
+        m.put( "project.basedir", file.getProject().getLocation().toFile().getAbsolutePath() );
+
+        return StringUtils.interpolate( content, m );
     }
 }
