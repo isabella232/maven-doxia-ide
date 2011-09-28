@@ -134,7 +134,9 @@ public class DoxiaWrapper
         }
         catch ( UnsupportedFormatException e )
         {
-            String msg = "Doxia Unsupported Format Exception: " + ( StringUtils.isEmpty( e.getMessage() ) ? e.getClass().getName() : e.getMessage() );
+            String msg =
+                "Doxia Unsupported Format Exception: "
+                    + ( StringUtils.isEmpty( e.getMessage() ) ? e.getClass().getName() : e.getMessage() );
             CommonPlugin.logError( msg, e, true );
 
             return addGenericMarker( file, msg );
@@ -145,7 +147,9 @@ public class DoxiaWrapper
         }
         catch ( Throwable t )
         {
-            String msg = "Doxia Converter Throwable: " + ( StringUtils.isEmpty( t.getMessage() ) ? t.getClass().getName() : t.getMessage() );
+            String msg =
+                "Doxia Converter Throwable: "
+                    + ( StringUtils.isEmpty( t.getMessage() ) ? t.getClass().getName() : t.getMessage() );
             CommonPlugin.logError( msg, t, true );
 
             return addGenericMarker( file, msg );
@@ -162,7 +166,9 @@ public class DoxiaWrapper
         }
         catch ( CoreException ce )
         {
-            String msgCe = "CoreException: " + ( StringUtils.isEmpty( ce.getMessage() ) ? ce.getClass().getName() : ce.getMessage() );
+            String msgCe =
+                "CoreException: "
+                    + ( StringUtils.isEmpty( ce.getMessage() ) ? ce.getClass().getName() : ce.getMessage() );
             CommonPlugin.logError( msgCe, ce, true );
 
             return msgCe;
@@ -229,17 +235,21 @@ public class DoxiaWrapper
 
     private static String addConverterMarker( IFile file, ConverterException e )
     {
-        String msg = "Doxia Converter Exception: " + ( StringUtils.isEmpty( e.getMessage() ) ? e.getClass().getName() : e.getMessage() );
+        String msg =
+            "Doxia Converter Exception: "
+                + ( StringUtils.isEmpty( e.getMessage() ) ? e.getClass().getName() : e.getMessage() );
 
         boolean isFileNotFoundException = false;
         Throwable cause = e.getCause();
-        while ( cause != null)
+        while ( cause != null )
         {
             // from MacroExecutionException
-            if ( cause.getClass().equals( FileNotFoundException.class ))
+            if ( cause.getClass().equals( FileNotFoundException.class ) )
             {
                 isFileNotFoundException = true;
-                msg = "Doxia Converter Exception: " + ( StringUtils.isEmpty( cause.getMessage() ) ? cause.getClass().getName() : cause.getMessage() );
+                msg =
+                    "Doxia Converter Exception: "
+                        + ( StringUtils.isEmpty( cause.getMessage() ) ? cause.getClass().getName() : cause.getMessage() );
                 break;
             }
             cause = cause.getCause();
@@ -291,7 +301,7 @@ public class DoxiaWrapper
         }
     }
 
-    private static String interpolateBasedir(IFile file, String content )
+    private static String interpolateBasedir( IFile file, String content )
     {
         final Map<String, String> m = new HashMap<String, String>();
         m.put( "basedir", file.getProject().getLocation().toFile().getAbsolutePath() );
