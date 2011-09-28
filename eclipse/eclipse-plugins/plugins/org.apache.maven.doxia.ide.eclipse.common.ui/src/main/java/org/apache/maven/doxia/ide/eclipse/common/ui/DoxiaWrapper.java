@@ -90,15 +90,16 @@ public class DoxiaWrapper
         }
         catch ( IOException e )
         {
-            String msg = "IOException: " + e.getMessage();
+            String msg = getMessage( "IOException: ", e );
             CommonPlugin.logError( msg, e, true );
             return addGenericMarker( file, msg );
         }
         catch ( CoreException ce )
         {
-            CommonPlugin.logError( "CoreException: " + ce.getMessage(), ce, true );
+            String msgCe = getMessage( "CoreException: ", ce );
+            CommonPlugin.logError( msgCe, ce, true );
 
-            return "CoreException: " + ce.getMessage();
+            return msgCe;
         }
         finally
         {
@@ -134,9 +135,7 @@ public class DoxiaWrapper
         }
         catch ( UnsupportedFormatException e )
         {
-            String msg =
-                "Doxia Unsupported Format Exception: "
-                    + ( StringUtils.isEmpty( e.getMessage() ) ? e.getClass().getName() : e.getMessage() );
+            String msg = getMessage( "Doxia Unsupported Format Exception: ", e );
             CommonPlugin.logError( msg, e, true );
 
             return addGenericMarker( file, msg );
@@ -147,9 +146,7 @@ public class DoxiaWrapper
         }
         catch ( Throwable t )
         {
-            String msg =
-                "Doxia Converter Throwable: "
-                    + ( StringUtils.isEmpty( t.getMessage() ) ? t.getClass().getName() : t.getMessage() );
+            String msg = getMessage( "Doxia Converter Throwable: ", t );
             CommonPlugin.logError( msg, t, true );
 
             return addGenericMarker( file, msg );
@@ -166,9 +163,7 @@ public class DoxiaWrapper
         }
         catch ( CoreException ce )
         {
-            String msgCe =
-                "CoreException: "
-                    + ( StringUtils.isEmpty( ce.getMessage() ) ? ce.getClass().getName() : ce.getMessage() );
+            String msgCe = getMessage( "CoreException: ", ce );
             CommonPlugin.logError( msgCe, ce, true );
 
             return msgCe;
@@ -226,18 +221,16 @@ public class DoxiaWrapper
         }
         catch ( CoreException ce )
         {
-            String msgCe = ( StringUtils.isEmpty( ce.getMessage() ) ? ce.getClass().getName() : ce.getMessage() );
-            CommonPlugin.logError( "CoreException: " + msgCe, ce, true );
+            String msgCe = getMessage( "CoreException: ", ce );
+            CommonPlugin.logError( msgCe, ce, true );
 
-            return "CoreException: " + msgCe;
+            return msgCe;
         }
     }
 
     private static String addConverterMarker( IFile file, ConverterException e )
     {
-        String msg =
-            "Doxia Converter Exception: "
-                + ( StringUtils.isEmpty( e.getMessage() ) ? e.getClass().getName() : e.getMessage() );
+        String msg = getMessage( "Doxia Converter Exception: ", e );
 
         boolean isFileNotFoundException = false;
         Throwable cause = e.getCause();
@@ -247,9 +240,7 @@ public class DoxiaWrapper
             if ( cause.getClass().equals( FileNotFoundException.class ) )
             {
                 isFileNotFoundException = true;
-                msg =
-                    "Doxia Converter Exception: "
-                        + ( StringUtils.isEmpty( cause.getMessage() ) ? cause.getClass().getName() : cause.getMessage() );
+                msg = getMessage( "Doxia Converter Exception: ", cause );
                 break;
             }
             cause = cause.getCause();
@@ -270,13 +261,13 @@ public class DoxiaWrapper
         }
         catch ( CoreException ce )
         {
-            String msgCe = ( StringUtils.isEmpty( ce.getMessage() ) ? ce.getClass().getName() : ce.getMessage() );
-            CommonPlugin.logError( "CoreException: " + msgCe, ce, true );
+            String msgCe = getMessage( "CoreException: ", ce );
+            CommonPlugin.logError( msgCe, ce, true );
 
-            return "CoreException: " + msgCe;
+            return msgCe;
         }
 
-        return "Doxia Converter Exception: " + msg;
+        return msg;
     }
 
     private static void addConverterMarker( IFile file, ConverterException e, String msg )
@@ -303,10 +294,18 @@ public class DoxiaWrapper
 
     private static String interpolateBasedir( IFile file, String content )
     {
+        String basedir = file.getProject().getLocation().toFile().getAbsolutePath();
+
         final Map<String, String> m = new HashMap<String, String>();
-        m.put( "basedir", file.getProject().getLocation().toFile().getAbsolutePath() );
-        m.put( "project.basedir", file.getProject().getLocation().toFile().getAbsolutePath() );
+        m.put( "basedir", basedir );
+        m.put( "project.basedir", basedir );
 
         return StringUtils.interpolate( content, m );
     }
+
+    private static String getMessage( String intro, Throwable t )
+    {
+        return intro + ( StringUtils.isEmpty( t.getMessage() ) ? t.getClass().getName() : t.getMessage() );
+    }
+
 }
