@@ -48,6 +48,8 @@
 
     <breadcrumbs>
       <item name="Doxia" href="http://maven.apache.org/doxia/index.html"/>
+      <item name="Doxia IDE" href="http://maven.apache.org/doxia/doxia-ide/index.html"/>
+      <item name="Eclipse" href="http://maven.apache.org/doxia/doxia-ide/eclipse/index.html"/>
     </breadcrumbs>
 
     <menu name="Overview">
