@@ -35,12 +35,12 @@ under the License.
   <packaging>pom</packaging>
 
   <description>The eclipse plugins, features, and update site are here.</description>
-  <url>http://maven.apache.org/doxia</url>
+  <url>http://maven.apache.org/doxia/doxia-ide/eclipse/</url>
 
   <scm>
-      <connection>scm:svn:http://svn.apache.org/repos/asf/maven/doxia/doxia-tools/trunk/doxia-ide/eclipse-plugins</connection>
-      <developerConnection>scm:svn:https://svn.apache.org/repos/asf/maven/doxia/doxia-tools/trunk/doxia-ide/eclipse-plugins</developerConnection>
-      <url>http://svn.apache.org/viewvc/maven/doxia/doxia-tools/trunk/doxia-ide/eclipse-plugins</url>
+      <connection>scm:svn:http://svn.apache.org/repos/asf/maven/doxia/doxia-ide/trunk/eclipse/eclipse-plugins</connection>
+      <developerConnection>scm:svn:https://svn.apache.org/repos/asf/maven/doxia/doxia-ide/trunk/eclipse/eclipse-plugins</developerConnection>
+      <url>http://svn.apache.org/viewvc/maven/doxia/doxia-ide/trunk/eclipse/eclipse-plugins</url>
   </scm>
   <issueManagement>
     <system>jira</system>

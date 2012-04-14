@@ -35,13 +35,13 @@ under the License.
   <packaging>pom</packaging>
 
   <description>Website for the Apache Maven Doxia Eclipse Editor plugin.</description>
-  <url>http://maven.apache.org/doxia/doxia-tools/doxia-ide/eclipse/</url>
+  <url>http://maven.apache.org/doxia/doxia-ide/eclipse/</url>
 
   <!-- The project basedir and not the site -->
   <scm>
-    <connection>scm:svn:http://svn.apache.org/repos/asf/maven/doxia/doxia-tools/trunk/doxia-ide/eclipse/</connection>
-    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/maven/doxia/doxia-tools/trunk/doxia-ide/eclipse/</developerConnection>
-    <url>http://svn.apache.org/viewvc/maven/doxia/doxia-tools/trunk/doxia-ide/eclipse/</url>
+    <connection>scm:svn:http://svn.apache.org/repos/asf/maven/doxia/doxia-ide/trunk/eclipse/</connection>
+    <developerConnection>scm:svn:https://svn.apache.org/repos/asf/maven/doxia/doxia-ide/trunk/eclipse/</developerConnection>
+    <url>http://svn.apache.org/viewvc/maven/doxia/doxia-ide/trunk/eclipse/</url>
   </scm>
   <issueManagement>
     <system>jira</system>
@@ -54,7 +54,7 @@ under the License.
   <distributionManagement>
     <site>
       <id>apache.website</id>
-      <url>scp://people.apache.org/www/maven.apache.org/doxia/doxia-tools/doxia-ide/eclipse/</url>
+      <url>scp://people.apache.org/www/maven.apache.org/doxia/doxia-ide/eclipse/</url>
     </site>
   </distributionManagement>
 
