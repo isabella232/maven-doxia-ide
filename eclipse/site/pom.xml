@@ -54,9 +54,15 @@ under the License.
   <distributionManagement>
     <site>
       <id>apache.website</id>
-      <url>scp://people.apache.org/www/maven.apache.org/doxia/doxia-ide/eclipse/</url>
+      <url>scm:svn:${svn.pubsub.url}</url>
     </site>
   </distributionManagement>
+
+  <properties>
+    <maven.site.cache>${user.home}/maven-sites</maven.site.cache><!-- TODO remove when upgrading parent to 23 -->
+    <maven.site.path>doxia-ide/eclipse</maven.site.path>
+    <svn.pubsub.url>https://svn.apache.org/repos/infra/websites/production/maven-doxia/content/doxia-ide/eclipse</svn.pubsub.url>
+  </properties>
 
   <build>
     <pluginManagement>
@@ -69,6 +75,34 @@ under the License.
       </plugins>
     </pluginManagement>
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-site-plugin</artifactId>
+        <version>3.2</version>
+        <configuration>
+          <skipDeploy>true</skipDeploy><!-- don't deploy site with maven-site-plugin -->
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-scm-publish-plugin</artifactId>
+        <version>1.0-beta-2</version>
+        <configuration>
+          <content>${project.reporting.outputDirectory}</content>
+          <pubScmUrl>scm:svn:${svn.pubsub.url}</pubScmUrl>
+          <checkoutDirectory>${maven.site.cache}/${maven.site.path}</checkoutDirectory>
+          <tryUpdate>true</tryUpdate>
+        </configuration>
+        <executions>
+          <execution>
+            <id>scm-publish</id>
+            <phase>site-deploy</phase><!-- deploy site with maven-scm-publish-plugin -->
+            <goals>
+              <goal>publish-scm</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-antrun-plugin</artifactId>
