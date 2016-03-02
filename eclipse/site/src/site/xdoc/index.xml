@@ -59,7 +59,7 @@ under the License.
       </subsection>
       <subsection name="Brief History">
         <p>
-           This project was started in 2008 by Vincent Siveton (see <a href="http://jira.codehaus.org/browse/DOXIATOOLS-8">DOXIATOOLS-8</a>)
+           This project was started in 2008 by Vincent Siveton (see <a href="https://issues.apache.org/jira/browse/DOXIATOOLS-8">DOXIATOOLS-8</a>)
            but was never released. In August 2011, Hervé Boutemy wanted to revive the project. Benson Margulies was willing to help
            by making a correct Maven build using OSGi and Tycho. Here we go now.
         </p>
