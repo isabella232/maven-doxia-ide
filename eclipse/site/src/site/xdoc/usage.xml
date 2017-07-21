@@ -30,7 +30,7 @@ under the License.
     <section name="Usage">
       <p>
         The Apache Doxia Eclipse plugin is a set of editors and wizards for Eclipse to support all
-        <a href="http://maven.apache.org/doxia/references/index.html">Apache Doxia formats</a>
+        <a href="/doxia/references/index.html">Apache Doxia formats</a>
         i.e. APT, Confluence, Simplified DocBook, FML, TWiki, XDOC and Xhtml.
       </p>
       <subsection name="Edit/view">
