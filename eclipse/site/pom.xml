@@ -25,7 +25,7 @@ under the License.
   <parent>
     <groupId>org.apache.maven</groupId>
     <artifactId>maven-parent</artifactId>
-    <version>23-SNAPSHOT</version>
+    <version>30</version>
     <relativePath/>
   </parent>
 
@@ -35,7 +35,7 @@ under the License.
   <packaging>pom</packaging>
 
   <description>Website for the Apache Maven Doxia Eclipse Editor plugin.</description>
-  <url>http://maven.apache.org/doxia/doxia-ide/eclipse/</url>
+  <url>https://maven.apache.org/doxia/doxia-ide/eclipse/</url>
 
   <!-- The project basedir and not the site -->
   <scm>
@@ -59,7 +59,6 @@ under the License.
   </distributionManagement>
 
   <properties>
-    <maven.site.cache>${user.home}/maven-sites</maven.site.cache><!-- TODO remove when upgrading parent to 23 -->
     <maven.site.path>doxia-ide/eclipse</maven.site.path>
     <svn.pubsub.url>https://svn.apache.org/repos/infra/websites/production/maven-doxia/content/doxia-ide/eclipse</svn.pubsub.url>
   </properties>
@@ -78,7 +77,6 @@ under the License.
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-site-plugin</artifactId>
-        <version>3.2</version>
         <configuration>
           <skipDeploy>true</skipDeploy><!-- don't deploy site with maven-site-plugin -->
         </configuration>
@@ -86,7 +84,6 @@ under the License.
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-scm-publish-plugin</artifactId>
-        <version>1.0-beta-2</version>
         <configuration>
           <content>${project.reporting.outputDirectory}</content>
           <pubScmUrl>scm:svn:${svn.pubsub.url}</pubScmUrl>
