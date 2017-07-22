@@ -29,8 +29,7 @@ under the License.
   </parent>
 
   <groupId>org.apache.maven.doxia.ide.plugins</groupId>
-  <artifactId>help</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <artifactId>org.apache.maven.doxia.ide.eclipse.help</artifactId>
   <packaging>eclipse-plugin</packaging>
 
   <name>Doxia Tools :: Eclipse IDE - Help Plugin</name>

@@ -29,7 +29,7 @@ under the License.
   </parent>
 
   <groupId>org.apache.maven.doxia.ide.features</groupId>
-  <artifactId>default-feature</artifactId>
+  <artifactId>org.apache.maven.doxia.ide.eclipse.feature</artifactId>
   <packaging>eclipse-feature</packaging>
 
   <name>Doxia Tools :: Eclipse IDE - Common Feature</name>

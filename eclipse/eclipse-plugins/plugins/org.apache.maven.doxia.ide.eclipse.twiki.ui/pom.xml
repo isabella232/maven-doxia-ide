@@ -29,8 +29,7 @@ under the License.
   </parent>
 
   <groupId>org.apache.maven.doxia.ide.plugins</groupId>
-  <artifactId>twiki-ui</artifactId>
-  <version>1.0.0-SNAPSHOT</version>
+  <artifactId>org.apache.maven.doxia.ide.eclipse.twiki.ui</artifactId>
   <packaging>eclipse-plugin</packaging>
 
   <name>Doxia Tools :: Eclipse IDE - Twiki UI Plugin</name>
