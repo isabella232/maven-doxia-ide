@@ -48,8 +48,8 @@ under the License.
         </p>
         <ul>
           <li>Supports all Apache Doxia file formats (as of version 1.3, ie. Markdown not yet supported)</li>
-          <li>Shows the rendering of any Apache Doxia file directly, without running <code>mvn site</code></li>
-          <li>Supports color and styles highlighting in the editors</li>
+          <li>Shows the rendering of any Apache Doxia file directly, without running <code>mvn site</code> or <code>mvn site:run</code></li>
+          <li>Supports source level color and styles highlighting in the editors</li>
           <li>Provides helpers to insert commonly used patterns in each format (bold, italic, monospaced, link, table)</li>
           <li>Includes wizards for creating new Apache Doxia files</li>
         </ul>
@@ -61,7 +61,7 @@ under the License.
         <p>
            This project was started in 2008 by Vincent Siveton (see <a href="https://issues.apache.org/jira/browse/DOXIATOOLS-8">DOXIATOOLS-8</a>)
            but was never released. In August 2011, Hervé Boutemy wanted to revive the project. Benson Margulies was willing to help
-           by making a correct Maven build using OSGi and Tycho. Here we go now.
+           by making a correct Maven build using OSGi and <a href="http://www.eclipse.org/tycho/">Tycho</a>. Here we go now.
         </p>
       </subsection>
       <subsection name="Installation">
