@@ -21,20 +21,20 @@ under the License.
 
 <feature
       id="org.apache.maven.doxia.ide.eclipse.feature"
-      label="Doxia Editors Feature"
+      label="Apache Doxia Eclipse Editors"
       version="1.0.0.qualifier"
       provider-name="Apache Maven">
 
-   <description url="http://maven.apache.org/doxia/">
-      Apache Maven Doxia Eclipse Plugin provides development editors, wizards and other useful stuffs for Doxia.
+   <description url="http://maven.apache.org/doxia/doxia-ide/eclipse/">
+      Apache Doxia Eclipse Editors provide development editors, wizards and other useful stuff for Doxia.
    </description>
 
-   <copyright url="http://maven.apache.org/doxia/">
+   <copyright url="https://maven.apache.org/doxia/">
       The Apache Software Foundation
    </copyright>
 
    <license url="http://www.apache.org/licenses/LICENSE-2.0.txt">
-      The Apache Software License, Version 2.0
+      Apache License, Version 2.0
    </license>
 
    <requires>

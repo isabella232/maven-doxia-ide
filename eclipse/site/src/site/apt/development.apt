@@ -1,5 +1,5 @@
  -----
- Development of Apache Doxia Eclipse Editor Plugin
+ Development of Apache Doxia Eclipse Editors
  -----
  Vincent Siveton
  Benson Margulies
@@ -27,21 +27,22 @@
 ~~ NOTE: For help with the syntax of this file, see:
 ~~ http://maven.apache.org/doxia/references/apt-format.html
 
-Development of Apache Doxia Eclipse Editor Plugin
+Development of Apache Doxia Eclipse Editors
 
   The project is divided in an OSGi bundle containing Apache Doxia and a set of Eclipse plugins and features.
   The build uses {{{http://www.eclipse.org/tycho/}Tycho}} and of course Apache Maven (version 3).
 
 * Doxia Components as an OSGi plugin
 
-   To have eclipse plugins that use the insides of Doxia, we need at least one
+   To have Eclipse plugins that use the insides of Doxia, we need at least one
    OSGi bundle containing Doxia itself (<<<org.apache.maven.doxia.eclipse.dependencies>>>).
    This could be arranged by adding OSGi
    manifest metadata to them one-at-a-time, but I doubt that anyone has much
    enthusiasm for that.
 
-   The initial attempt at this using the maven-bundle-plugin was relatively simple.
-   By using Embed-Dependencies and _exportcontents, you can instruct it to
+   The initial attempt at this using the
+   {{{http://felix.apache.org/components/bundle-plugin/}<<<maven-bundle-plugin>>>}} was relatively simple.
+   By using <<<Embed-Dependencies>>> and <<<_exportcontents>>>, you can instruct it to
    grab all the maven dependencies of the current project as jars embedded in the
    bundle jar, and set up the manifest to match.
 
@@ -61,7 +62,7 @@ Development of Apache Doxia Eclipse Editor Plugin
 
    The plugins are divided in a common project (<<<org.apache.maven.doxia.ide.eclipse.common.ui>>>), which contains all
    generic classes to handle actions, dialogs, editors, rules and wizards.
-   Other plugins are specific implementations for a given Doxia format (i.e. APT).
+   Other plugins are specific implementations for a given Doxia format (e.g. APT).
 
 * Building
 

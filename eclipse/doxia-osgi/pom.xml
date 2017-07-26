@@ -35,7 +35,7 @@ under the License.
   <packaging>pom</packaging>
 
   <description>Make an OSGi bundle consisting of Doxia, and put it in a P2 repo.</description>
-  <url>http://maven.apache.org/doxia/doxia-ide/eclipse/</url>
+  <url>https://maven.apache.org/doxia/doxia-ide/eclipse/</url>
 
   <scm>
       <connection>scm:svn:http://svn.apache.org/repos/asf/maven/doxia/doxia-ide/trunk/eclipse/doxia-osgi</connection>
@@ -48,7 +48,7 @@ under the License.
   </issueManagement>
   <ciManagement>
     <system>Jenkins</system>
-    <url>https://builds.apache.org/job/doxia-eclipse-editor/</url>
+    <url>https://builds.apache.org/view/M-R/view/Maven/job/doxia-eclipse-editor/</url>
   </ciManagement>
 
 <!--

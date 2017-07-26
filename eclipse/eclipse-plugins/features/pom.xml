@@ -72,8 +72,8 @@ under the License.
           </execution>
         </executions>
         <configuration>
-          <metadataRepositoryName>Doxia Editor Plugins</metadataRepositoryName>
-          <artifactRepositoryName>Doxia Editor plugins</artifactRepositoryName>
+          <metadataRepositoryName>Apache Doxia Eclipse Editors</metadataRepositoryName>
+          <artifactRepositoryName>Apache Doxia Eclipse Editors</artifactRepositoryName>
           <compressRepository>false</compressRepository>
         </configuration>
       </plugin>

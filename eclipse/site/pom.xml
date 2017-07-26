@@ -34,7 +34,7 @@ under the License.
   <version>1.0-SNAPSHOT</version>
   <packaging>pom</packaging>
 
-  <description>Website for the Apache Maven Doxia Eclipse Editor plugin.</description>
+  <description>Website for Apache Maven Doxia Eclipse Editors.</description>
   <url>https://maven.apache.org/doxia/doxia-ide/eclipse/</url>
 
   <!-- The project basedir and not the site -->
@@ -49,7 +49,7 @@ under the License.
   </issueManagement>
   <ciManagement>
     <system>Jenkins</system>
-    <url>https://builds.apache.org/job/doxia-eclipse-editor/</url>
+    <url>https://builds.apache.org/view/M-R/view/Maven/job/doxia-eclipse-editor/</url>
   </ciManagement>
   <distributionManagement>
     <site>

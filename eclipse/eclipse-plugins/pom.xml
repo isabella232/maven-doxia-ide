@@ -48,7 +48,7 @@ under the License.
   </issueManagement>
   <ciManagement>
     <system>Jenkins</system>
-    <url>https://builds.apache.org/job/doxia-eclipse-editor/</url>
+    <url>https://builds.apache.org/view/M-R/view/Maven/job/doxia-eclipse-editor/</url>
   </ciManagement>
 
   <properties>

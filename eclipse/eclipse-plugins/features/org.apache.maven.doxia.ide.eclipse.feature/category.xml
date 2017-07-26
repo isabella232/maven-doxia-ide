@@ -19,7 +19,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 <site>
-   <category-def name="org.apache.maven.doxia.ide.eclipse" label="Apache Maven Doxia Editors"/>
+   <category-def name="org.apache.maven.doxia.ide.eclipse" label="Apache Maven Doxia Eclipse Editors"/>
    <feature url="features/org.apache.maven.doxia.ide.eclipse.feature_1.0.0.qualifier.jar"
 	    id="org.apache.maven.doxia.ide.eclipse.feature" version="1.0.0.qualifier">
       <category name="org.apache.maven.doxia.ide.eclipse"/>

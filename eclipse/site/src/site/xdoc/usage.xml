@@ -22,14 +22,14 @@ under the License.
   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/XDOC/2.0 http://maven.apache.org/xsd/xdoc-2.0.xsd">
   <properties>
-    <title>Usage of Apache Doxia Eclipse Plugin</title>
+    <title>Usage of Apache Doxia Eclipse Editors</title>
     <author email="vsiveton@apache.org">Vincent Siveton</author>
   </properties>
 
   <body>
     <section name="Usage">
       <p>
-        The Apache Doxia Eclipse plugin is a set of editors and wizards for Eclipse to support all
+        Apache Doxia Eclipse Editors is a set of editors and wizards for Eclipse to support all
         <a href="/doxia/references/index.html">Apache Doxia formats</a>
         i.e. APT, Confluence, Simplified DocBook, FML, TWiki, XDOC and Xhtml.
       </p>
