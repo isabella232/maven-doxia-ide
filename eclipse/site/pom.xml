@@ -60,7 +60,7 @@ under the License.
 
   <properties>
     <maven.site.path>doxia-ide/eclipse</maven.site.path>
-    <svn.pubsub.url>https://svn.apache.org/repos/infra/websites/production/maven-doxia/content/doxia-ide/eclipse</svn.pubsub.url>
+    <svn.pubsub.url>https://svn.apache.org/repos/infra/websites/production/maven-doxia/components/doxia-ide/eclipse</svn.pubsub.url>
   </properties>
 
   <dependencies>
